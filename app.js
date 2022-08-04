@@ -121,15 +121,27 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
 //updating the board function    
-const updateBoard =  (index) => {
-    board[index] = currentPlayer;
-}
+    const updateBoard =  (index) => {
+        board[index] = currentPlayer;
+    }
 
 //restarting the board/game
-
-
-
-
+    const resetBoard = () => {
+        //contain 9 empty strings
+        board = ['', '', '', '', '', '', '', '', ''];
+        //in game so isGameActive? true  
+        isGameActive = true;
+        //hide the announcer list 
+        announcer.classList.add('hide')
+        //by default player x starts the game evry time so
+        if (currentPlayer === "O") {
+            changePlayer();
+        }
+        //we want to empty out each cell, forEach for that
+        cells.forEach(cell => {
+            cell.innerText="";
+        })
+}
 
 
 //event listener
