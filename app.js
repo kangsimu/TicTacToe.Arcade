@@ -51,7 +51,7 @@ window.addEventListener('DOMContentLoaded', () => {
     cells.forEach( (cell, index) => {
         cell.addEventListener('click', () => userAction(cell, index));
     });
-    //attaching event listener to all cells 
+//attaching event listener to all cells 
     cells.forEach( (cell, index) => {
         cell.addEventListener('click', () => userAction(cell, index));
     });
@@ -82,6 +82,50 @@ window.addEventListener('DOMContentLoaded', () => {
         return true;
     };
 
+//let's go ahead and announce the winner now 
+    const announce = (type) => {
+        switch(type){
+            case PLAYERO_WON:
+                announcer.innerHTML = 'Player <span class="playerO">O</span> Won';
+                break;
+            case PLAYERX_WON:
+                announcer.innerHTML = 'Player <span class="playerX">X</span> Won';
+                break;
+            case TIE:
+                announcer.innerText = 'Tie';
+        }
+        announcer.classList.remove('hide');
+    };
+
+//checking if the game has a winner or not, go through win condition array
+    function handleResultValidation() {
+        let roundWon = false;
+        for (let i = 0; i <= 7; i++) {
+            const winCondition = winningConditions[i];
+            const a = board[winCondition[0]];
+            const b = board[winCondition[1]];
+            const c = board[winCondition[2]];
+        if (a === '' || b === '' || c === '') {
+            continue;
+        }
+        if (a === b && b === c) {
+            roundWon = true;
+            break;
+        }
+        } if (roundWon) {
+            announce(currentPlayer === 'X' ? PLAYERX_WON : PLAYERO_WON);
+            isGameActive = false;
+            return;
+        } if (!board.includes(''))
+            announce(TIE);
+    }
+
+//updating the board function    
+const updateBoard =  (index) => {
+    board[index] = currentPlayer;
+}
+
+//restarting the board/game
 
 
 
