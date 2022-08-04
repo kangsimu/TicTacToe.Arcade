@@ -51,6 +51,41 @@ window.addEventListener('DOMContentLoaded', () => {
     cells.forEach( (cell, index) => {
         cell.addEventListener('click', () => userAction(cell, index));
     });
+    //attaching event listener to all cells 
+    cells.forEach( (cell, index) => {
+        cell.addEventListener('click', () => userAction(cell, index));
+    });
+
+//implenting the user action function
+    const userAction = (cell, index) => {
+        if(isValidAction(cell) && isGameActive) {
+            cell.innerText = currentPlayer;
+            cell.classList.add(`player${currentPlayer}`);
+            updateBoard(index);
+            handleResultValidation();
+            changePlayer();
+        }
+    }
+//changing player turns and displaying current player 
+    const changePlayer = () => {
+        playerDisplay.classList.remove(`player${currentPlayer}`);
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        playerDisplay.innerText = currentPlayer;
+        playerDisplay.classList.add(`player${currentPlayer}`);
+    }
+
+//checking whether the cell has a value already so the player can only play on empty cels
+    const isValidAction = (cell) => {
+        if (cell.innerText === 'X' || cell.innerText === 'O'){
+            return false;
+        }
+        return true;
+    };
+
+
+
+
+
 
 
 //event listener
